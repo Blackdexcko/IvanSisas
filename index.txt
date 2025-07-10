@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IvanSisas</title>
+  <link rel="icon" href="https://i.imgur.com/VFVmIiw.png">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ff416c, #ff4b2b);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    header img {
+      width: 40px;
+    }
+
+    header h1 {
+      font-size: 1.8em;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      color: black;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 340px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      max-width: 340px;
+      margin-top: 15px;
+    }
+
+    .buttons button {
+      flex: 1;
+      margin: 0 5px;
+      padding: 15px;
+      font-size: 1em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .like {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .dislike {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .message {
+      font-size: 1.1em;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .card, .buttons {
+        width: 90%;
+      }
+
+      header h1 {
+        font-size: 1.4em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://i.imgur.com/VFVmIiw.png" alt="Logo IvanSisas">
+    <h1>IvanSisas</h1>
+  </header>
+
+  <div class="card" id="profileCard">
+    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Perfil" id="profileImg">
+    <h2 id="profileName">María, 25</h2>
+    <p id="profileDesc">Amante de los perros, la playa y el perreo intenso.</p>
+  </div>
+
+  <div class="buttons">
+    <button class="dislike" onclick="nextProfile()">👎</button>
+    <button class="like" onclick="likeProfile()">❤️</button>
+  </div>
+
+  <div class="message" id="matchMessage"></div>
+
+  <script>
+    const profiles = [
+      {
+        name: "María, 25",
+        img: "https://randomuser.me/api/portraits/women/45.jpg",
+        desc: "Amante de los perros, la playa y el perreo intenso."
+      },
+      {
+        name: "Laura, 29",
+        img: "https://randomuser.me/api/portraits/women/12.jpg",
+        desc: "Bailo reguetón mejor que nadie."
+      },
+      {
+        name: "Tatiana, 27",
+        img: "https://randomuser.me/api/portraits/women/21.jpg",
+        desc: "Busco alguien que me aguante los bailes del grupo IvanSisas."
+      },
+      {
+        name: "Daniela, 23",
+        img: "https://randomuser.me/api/portraits/women/33.jpg",
+        desc: "Fan del dembow, cero drama y mucha risa."
+      }
+    ];
+
+    let currentIndex = 0;
+    let likes = [];
+
+    function showProfile(index) {
+      if (index >= profiles.length) {
+        document.getElementById("profileCard").style.display = "none";
+        document.querySelector(".buttons").style.display = "none";
+        document.getElementById("matchMessage").innerText = "🎉 ¡Has visto todos los perfiles!";
+        return;
+      }
+
+      const profile = profiles[index];
+      document.getElementById("profileName").innerText = profile.name;
+      document.getElementById("profileImg").src = profile.img;
+      document.getElementById("profileDesc").innerText = profile.desc;
+    }
+
+    function nextProfile() {
+      currentIndex++;
+      document.getElementById("matchMessage").innerText = "";
+      showProfile(currentIndex);
+    }
+
+    function likeProfile() {
+      likes.push(profiles[currentIndex].name);
+      document.getElementById("matchMessage").innerText = `🔥 ¡Diste like a ${profiles[currentIndex].name}!`;
+      nextProfile();
+    }
+
+    showProfile(currentIndex);
+  </script>
+
+</body>
+</html>
